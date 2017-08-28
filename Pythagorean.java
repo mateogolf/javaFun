@@ -7,8 +7,13 @@ public class Pythagorean {
         double c = Math.hypot(legA,legB);
         double altC = Math.sqrt((legA*legA) + (legB*legB));
 
-        System.out.println(c);
-        System.out.println(c);
+        // System.out.println(c);
+        // System.out.println(c);
         return c;
     }
 }
+
+Pythagorean pyth = new Pythagorean();
+double a = 2;
+double a = 3;
+double c = 
