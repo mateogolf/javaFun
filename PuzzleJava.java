@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Collections;
+import java.util.*;
 
 public class PuzzleJava{
     public static void main(String args[]){
@@ -31,20 +29,21 @@ public class PuzzleJava{
 
         //Generate and return an array with 10 random numbers between 55-100 -use rand10 above
         //have it be sorted (showing the smallest number in the beginning). 
-        puzzler.rand10Play(rand10);
         //Display all the numbers in the array. 
         //Next, display the minimum value in the array as well as the maximum value.
+        puzzler.rand10Play(rand10);
 
         //Create a random string that is 5 characters long.
-
+        System.out.println(puzzler.randString5());
         //Generate an array with 10 random strings that are each 5 characters long
+        System.out.println(puzzler.tenRandString5());
     }
-    public ArrayList valsGreaterThan10(int[] x){
+    public ArrayList<Integer> valsGreaterThan10(int[] x){
         //printall
         ArrayList<Integer> greaterTen = new ArrayList<Integer>();
         int sum = 0;
         for(Integer i:x){
-            sum = sum + i;
+            sum += i;
             if(i>10){//add values that are greater than 10 to new ArrayList
                 greaterTen.add(i);
             }
@@ -53,77 +52,149 @@ public class PuzzleJava{
         return greaterTen;//return array of values greater than 10
         
     }
-    public ArrayList shuffleAndNameLongerThan5(ArrayList<String> x){
-        ArrayList<String> shuffled = new ArrayList<String>();
+    public ArrayList<String> shuffleAndNameLongerThan5(ArrayList<String> x){
+        // ArrayList<String> shuffled = new ArrayList<String>();
         ArrayList<String> longer5 = new ArrayList<String>();
-        //shuffle
-        while(x.size() > 0){//shuffle loop until
-            //find random index between 0 and x.length-1
-            Random rand = new Random();
-            int i = rand.nextInt(x.size());
-            //Add string @ random index to suffled
-            shuffled.add(x.get(i));
-            //if string @ random index longer than 5, then add to longer5
-            // String str = 
-            if(x.get(i).length() > 5){
-                longer5.add(x.get(i));
+        //SHORTHAND shuffle using collections
+        Collections.shuffle(x);
+
+        for (String val : x) {//easier loop for checking length
+            System.out.println(val);//print all shuffled strings
+
+            if (val.length() > 5) {//add strings longer than 5
+                longer5.add(val);
             }
-            //remove string from x
-            x.remove(i);
         }
-        //Print shuffled
-        for(String str:shuffled){
-            System.out.println(str);
+        //shuffle long hand
+        // while(x.size() > 0){//shuffle loop until
+        //     //find random index between 0 and x.length-1
+        //     Random rand = new Random();
+        //     int i = rand.nextInt(x.size());
+        //     //Add string @ random index to suffled
+        //     shuffled.add(x.get(i));
+        //     //if string @ random index longer than 5, then add to longer5
+        //     // String str = 
+        //     if(x.get(i).length() > 5){
+        //         longer5.add(x.get(i));
+        //     }
+        //     //remove string from x
+        //     x.remove(i);
+        // }
+        // //Print shuffled
+        // for(String str:shuffled){
+        //     System.out.println(str);
+        // }
+        //return array of strings longer than 5 chars
+        return longer5;
+    }
+    
+    public ArrayList<String> shuffleAndNameLongerThan5(String[] x) {
+        ArrayList<String> shuffled = new ArrayList<String>(Arrays.asList(x));
+        ArrayList<String> longer5 = new ArrayList<String>();
+        //shuffle using collections
+        Collections.shuffle(shuffled);
+        
+        for(String val: shuffled) {//easier loop for checking length
+            System.out.println(val);//print all shuffled strings
+
+            if (val.length() > 5) {//add strings longer than 5
+                longer5.add(val);
+            }
         }
+        
         //return array of strings longer than 5 chars
         return longer5;
     }
     public void alphabeticScramble(){
         //Create an array that contains all 26 letters of the alphabet (this array must have 26 values). 
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        ArrayList<Character> x = new ArrayList<Character>();
-        for(int i=0;i<alphabet.length;i++){
-            x.add(alphabet[i]);
-        }
-        ArrayList<Character> shuffled = new ArrayList<Character>();
-        while(x.size() > 0){//Shuffle the array
-            
-            Random rand = new Random();
-            int i = rand.nextInt(x.size());//find random index between 0 and x.size()
-            shuffled.add(x.get(i));//add to shuffled
-            x.remove(i);
-        }
-        System.out.println(shuffled.get(25));//display the last letter of the array.
-        System.out.println(shuffled.get(0));//Have it also display the first letter of the array.
-        //If the first letter in the array is a vowel, have it display a message
         char[] vowels = "aeiou".toCharArray();
-        for(int i=0;i<vowels.length;i++){
-            if(shuffled.get(0) == vowels[i]){
-                System.out.println("The First letter in shuffled alphabet is a vowel!");
-            }
+        // ArrayList<Character> x = new ArrayList<Character>();
+        ArrayList<Character> shuffled = new ArrayList<Character>();
+        for(int i=0;i<alphabet.length;i++){
+            shuffled.add(alphabet[i]);
+        }
+        Collections.shuffle(shuffled);
+        System.out.println(shuffled);
+        // while(x.size() > 0){//Shuffle the array long way
+            
+        //     Random rand = new Random();
+        //     int i = rand.nextInt(x.size());//find random index between 0 and x.size()
+        //     shuffled.add(x.get(i));//add to shuffled
+        //     x.remove(i);
+        // }
+        System.out.println("Last letter: " + shuffled.get(shuffled.size()-1));//display the last letter of the array.
+        System.out.println("First letter: " + shuffled.get(0));//Have it also display the first letter of the array.
+        //If the first letter in the array is a vowel, have it display a message
+        // for(int i=0;i<vowels.length;i++){
+        //     if(shuffled.get(0) == vowels[i]){
+        //         System.out.println("The First letter is a vowel!");
+        //     }
+        // }//long way to see if its a vowel
+        if (Arrays.asList(vowels).contains(shuffled.get(0))) {
+            System.out.println("The first letter is a vowel!");
         }
     }
-    public ArrayList rand10bet55And100(){
+    public ArrayList<Integer> rand10bet55And100(){
         ArrayList<Integer> randomTen = new ArrayList<Integer>();
         //Generate and return an array with 10 random numbers between 55-100.
+        Random rand = new Random();
         for(int i=0;i<10;i++){
-            Random rand = new Random();
-            int num = rand.nextInt(100-55)+55;
-            randomTen.add(num);
+            randomTen.add(rand.nextInt(100 - 55) + 55);
         }
         return randomTen;
     }
-    public void rand10Play(ArrayList arr){
+    public void rand10Play(ArrayList<Integer> arr){
         //Generate and return an array with 10 random numbers between 55-100
-        //have it be sorted (showing the smallest number in the beginning). 
-        // Collections
+        //have it be sorted (showing the smallest number in the beginning).
         Collections.sort(arr);
+        // System.out.println("Test sorting");
+        // System.out.println(arr);
         //Display all the numbers in the array. 
-        for(Integer i:arr){
-            System.out.println(i);
+        for(int i=0;i<arr.size();i++){
+            System.out.println(arr.get(i));
         }
         //Next, display the minimum value in the array as well as the maximum value.
-        System.out.println(arr.get(0));
-        System.out.println(arr.get(arr.size()-1));
+        // System.out.println("");
+        System.out.println("Min: " + arr.get(0));
+        System.out.println("Max: " + arr.get(arr.size()-1));
+    }
+    
+    public void rand10Play() {
+        //Generate and return an array with 10 random numbers between 55-100
+        ArrayList<Integer> randomTen = rand10bet55And100();
+        System.out.println(randomTen);
+        //have it be sorted (showing the smallest number in the beginning).
+        Collections.sort(randomTen);
+        System.out.println("Sorted random 10");
+        System.out.println(randomTen);
+        //Display all the numbers in the array. 
+        for (int i = 0; i < randomTen.size(); i++) {
+            System.out.println(randomTen.get(i));
+        }
+        //Next, display the minimum value in the array as well as the maximum value.
+        // System.out.println("");
+        System.out.println("Min: " + randomTen.get(0));
+        System.out.println("Min: " + randomTen.get(randomTen.size() - 1));
+    }
+    public static String randString5Helper(){
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        Random rand = new Random();
+        String result = "";
+        for(int i=0;i<5;i++){
+            result = result + alphabet[rand.nextInt(alphabet.length)];
+        }
+        return result;
+    }//created a static helper for string generation since used in multiple methods
+    public String randString5() {
+        return PuzzleJava.randString5Helper();
+    }
+    public ArrayList<String> tenRandString5(){
+        ArrayList<String> result = new ArrayList<String>();
+        for(int i=0;i<10;i++){
+            String newStr = randString5();
+            result.add(newStr);
+        }
+        return result;
     }
 }
