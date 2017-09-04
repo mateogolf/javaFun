@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 public class PuzzleJava{
     public static void main(String args[]){
@@ -25,10 +26,12 @@ public class PuzzleJava{
         puzzler.alphabeticScramble();
 
         //Generate and return an array with 10 random numbers between 55-100.
-        System.out.println(puzzler.rand10bet55And100());
+        ArrayList<Integer> rand10 = puzzler.rand10bet55And100();
+        System.out.println(rand10);
 
-        //Generate and return an array with 10 random numbers between 55-100 and 
+        //Generate and return an array with 10 random numbers between 55-100 -use rand10 above
         //have it be sorted (showing the smallest number in the beginning). 
+        puzzler.rand10Play(rand10);
         //Display all the numbers in the array. 
         //Next, display the minimum value in the array as well as the maximum value.
 
@@ -109,5 +112,18 @@ public class PuzzleJava{
             randomTen.add(num);
         }
         return randomTen;
+    }
+    public void rand10Play(ArrayList arr){
+        //Generate and return an array with 10 random numbers between 55-100
+        //have it be sorted (showing the smallest number in the beginning). 
+        // Collections
+        Collections.sort(arr);
+        //Display all the numbers in the array. 
+        for(Integer i:arr){
+            System.out.println(i);
+        }
+        //Next, display the minimum value in the array as well as the maximum value.
+        System.out.println(arr.get(0));
+        System.out.println(arr.get(arr.size()-1));
     }
 }
